@@ -1,0 +1,12 @@
+{
+  "job": {
+    "name": "quality",
+    "command": "pnpm check",
+    "exit_code": 1
+  },
+  "change": {
+    "changed_files": ["example/cart.ts"],
+    "diff": "diff --git a/example/cart.ts b/example/cart.ts\nindex 3a1f2b8..7c4e9d1 100644\n--- a/example/cart.ts\n+++ b/example/cart.ts\n@@ -1,3 +1,3 @@\n export function calculateTotal(price: number, quantity: number): number {\n-  return price * quantity;\n+  return price * (quantity - 1);\n }\n"
+  },
+  "logs": "> jev-ci-classifier@1.0.0 check\n> pnpm lint && pnpm typecheck && pnpm test\n\n RUN  v5.0.1\n\n FAIL example/cart.test.ts\n  FAIL calculateTotal > calculates the total for multiple items\n\n  AssertionError: expected 2000 to be 3000\n  at example/cart.test.ts:6:9"
+}

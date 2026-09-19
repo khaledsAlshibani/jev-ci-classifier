@@ -1,0 +1,39 @@
+{
+  "name": "jev-ci-classifier",
+  "version": "1.0.0",
+  "description": "Classify CI failures with Jev using OpenRouter's Decisions API.",
+  "type": "module",
+  "engines": {
+    "node": ">=24"
+  },
+  "private": true,
+  "scripts": {
+    "classify": "node scripts/classify-ci-failure.ts",
+    "classify:local": "node --env-file=.env.local scripts/classify-ci-failure.ts",
+    "lint": "eslint .",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "check": "pnpm lint && pnpm typecheck && pnpm test",
+    "prepare": "husky"
+  },
+  "license": "MIT",
+  "packageManager": "pnpm@10.33.2",
+  "lint-staged": {
+    "*.{ts,js,md,json,yml,yaml}": "prettier --write",
+    "*.{ts,js}": "eslint --fix"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@types/node": "^26.6.2",
+    "eslint": "^10.11.0",
+    "eslint-config-prettier": "^10.1.8",
+    "husky": "^9.1.7",
+    "lint-staged": "^17.5.1",
+    "prettier": "^3.9.8",
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.70.0",
+    "vitest": "^5.0.1"
+  }
+}
