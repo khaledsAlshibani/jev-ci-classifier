@@ -1,9 +1,12 @@
-# Jev CI Classifier
+<h1 align="center">Jev CI Classifier</h1>
 
-This repo was created for an article about Jev, where I wanted to test it with a real technical example instead of only explaining how it works. The example uses Jev to classify failed PR checks and adds the result as extra diagnostic information without changing whether the PR checks pass or fail.
+<p align="center">
+  This repo was created for an article <a href="https://technway.biz/en/blog/using-jev-for-structured-decisions-in-software-development/">Using Jev for Structured Decisions in Software Development</a>, where I wanted to test Jev with a real technical example instead of only explaining how it works. The example uses Jev to classify failed PR checks and adds the result as extra diagnostic information without changing whether the PR checks pass or fail.
+</p>
 
-> [!NOTE]
-> You can run the classifier locally without opening a PR. In the PR workflow, Jev is only called when the normal checks fail.
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/f1aa759b-1b0a-487e-8b3b-7b96d341215e" alt="Jev CI Classifier" />
+</div>
 
 ## What it checks
 
@@ -56,7 +59,7 @@ flowchart LR
     A["example/state.json"] --> B["pnpm classify:local"]
     B --> C["OpenRouter Decisions API"]
     C --> D["Jev"]
-    D --> E["Classification in terminal"]
+    D --> E["Structured result in terminal"]
 ```
 
 The state contains the information Jev needs to inspect:
@@ -148,7 +151,7 @@ Jev chooses between:
 
 The result also includes the probability of every option and a confidence value.
 
-`dependency_failure` is only reached when the compiler reports a missing module. A failed `pnpm install` never do a failure.
+`dependency_failure` is only reached when the compiler reports a missing module. If `pnpm install` fails earlier, Jev is not called.
 
 ### Related to the current change
 
@@ -207,19 +210,16 @@ If the checks fail, the workflow captures information about the failure and runs
 
 ```mermaid
 flowchart TD
-    A["PR"] --> B["PR checks / pr-checks"]
-    B --> C["pnpm check"]
+    A["PR"] --> B["pr-checks<br/>pnpm check"]
 
-    C -->|passes| D["PR checks pass"]
+    B -->|passes| C["PR checks pass<br/>Jev is not called"]
 
-    C -->|fails| E["Capture failure context"]
-    E --> F["Upload failure-state.json"]
-    F --> G["PR checks / classify-failure"]
-    G --> H["Jev through OpenRouter"]
-    H --> I["PR comment"]
-    H --> J["GitHub Actions summary"]
+    B -->|fails| D["PR checks stay failed"]
 
-    C -->|original failure| K["pr-checks stays failed"]
+    D --> E["Capture logs + Git diff"]
+    E --> F["classify-failure"]
+    F --> G["Jev through OpenRouter"]
+    G --> H["Diagnostic result<br/>PR comment + Actions summary"]
 ```
 
 ## What is sent to Jev from CI
