@@ -58,9 +58,9 @@ export const questions = {
     type: 'noul',
     instructions: 'The edits shown under change.diff caused this CI failure.',
     criteria: {
-      true: 'The failure is explained by a line the diff added or removed.',
+      true: 'The failure can reasonably be explained by the changes shown in change.diff, including indirect effects in unchanged files.',
       false:
-        'The failure is pre-existing, or comes from code the diff does not touch.',
+        'The available evidence suggests the failure is unrelated to the changes shown in change.diff or was already present.',
     },
   },
   // Keep the levels mutually exclusive so the same log does not clearly fit more than one.
