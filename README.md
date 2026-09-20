@@ -8,6 +8,8 @@
   <img src="https://github.com/user-attachments/assets/f1aa759b-1b0a-487e-8b3b-7b96d341215e" alt="Jev CI Classifier" />
 </div>
 
+TEST no CI failure case.
+
 ## What it checks
 
 | Question             | Type     | What it tells us                                           |
